@@ -1,0 +1,18 @@
+-------------------------------------------------------------------------------
+Test set: com.example.LoginCourierTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 127.277 s <<< FAILURE! - in com.example.LoginCourierTest
+testCourierCannotLoginWithoutPassword(com.example.LoginCourierTest)  Time elapsed: 60.722 s  <<< FAILURE!
+java.lang.AssertionError: 
+При отсутствии в JSON пароля - ответ сервера не 400
+Expected: <400>
+     but: was <504>
+	at com.example.LoginCourierTest.testCourierCannotLoginWithoutPassword(LoginCourierTest.java:122)
+
+testCourierCannotLoginWithoutCredentials(com.example.LoginCourierTest)  Time elapsed: 60.778 s  <<< FAILURE!
+java.lang.AssertionError: 
+При отсутствии в JSON логина и пароля - ответ сервера не 400
+Expected: <400>
+     but: was <504>
+	at com.example.LoginCourierTest.testCourierCannotLoginWithoutCredentials(LoginCourierTest.java:131)
+

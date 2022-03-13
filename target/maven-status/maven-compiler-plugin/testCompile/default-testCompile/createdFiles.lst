@@ -1,0 +1,7 @@
+com\example\DeleteCourierTest.class
+com\example\LoginCourierTest.class
+com\example\AcceptOrderTest.class
+com\example\CreateCourierTest.class
+com\example\GetOrderByTrackTest.class
+com\example\CreateOrderTest.class
+com\example\ListOfOrdersTest.class

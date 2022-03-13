@@ -1,0 +1,18 @@
+-------------------------------------------------------------------------------
+Test set: com.example.DeleteCourierTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.979 s <<< FAILURE! - in com.example.DeleteCourierTest
+testNonExistentCourierCannotBeDeleted(com.example.DeleteCourierTest)  Time elapsed: 0.68 s  <<< FAILURE!
+java.lang.AssertionError: 
+Запрос не возвращает 'Курьера с таким id нет'
+Expected: "Курьера с таким id нет"
+     but: was "Курьера с таким id нет."
+	at com.example.DeleteCourierTest.testNonExistentCourierCannotBeDeleted(DeleteCourierTest.java:63)
+
+testCourierCannotBeDeletedWithoutId(com.example.DeleteCourierTest)  Time elapsed: 0.689 s  <<< FAILURE!
+java.lang.AssertionError: 
+При удалении курьера без id - ответ сервера не 400
+Expected: <400>
+     but: was <404>
+	at com.example.DeleteCourierTest.testCourierCannotBeDeletedWithoutId(DeleteCourierTest.java:52)
+
