@@ -4,6 +4,7 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.junit4.DisplayName;
 
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,15 +29,17 @@ public class CreateCourierTest {
 
     }
 
-     @After
-     public void tearDown() {
-         if (statusCode != SC_BAD_REQUEST) {
-             ValidatableResponse loginResponse = courierClient.login(courierCredentials);
-             courierId = loginResponse.extract().path("id");
-             courierClient.delete(courierId.toString());
-         }
-     }
+    @After
+    public void tearDown() {
+        if (statusCode != SC_BAD_REQUEST) {
+            ValidatableResponse loginResponse = courierClient.login(courierCredentials);
+            courierId = loginResponse.extract().path("id");
+            courierClient.delete(courierId.toString());
+        }
+    }
+
     @Test
+    @DisplayName("Courier can be created with valid credentials")
     public void testCourierCanBeCreated() {
         ValidatableResponse createResponse = courierClient.create(courier);
         statusCode = createResponse.extract().statusCode();
@@ -47,6 +50,7 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("The same courier cannot be created")
     public void testTheSameCourierCannotBeCreated() {
         ValidatableResponse createResponse = courierClient.create(courier);
         createResponse = courierClient.create(courier);
@@ -58,9 +62,10 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("Courier with the same login cannot be created")
     public void testCourierWithTheSameLoginCannotBeCreated() {
         ValidatableResponse createResponse = courierClient.create(courier);
-        String newPassword = password.substring(0,8);
+        String newPassword = password.substring(0, 8);
         courier.setPassword(newPassword);
         createResponse = courierClient.create(courier);
         statusCode = createResponse.extract().statusCode();
@@ -71,6 +76,7 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot be created with empty login")
     public void testCourierCannotBeCreatedWithEmptyLogin() {
         courier.setLogin("");
         ValidatableResponse createResponse = courierClient.create(courier);
@@ -82,6 +88,7 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot be created with empty password")
     public void testCourierCannotBeCreatedWithEmptyPassword() {
         courier.setPassword("");
         ValidatableResponse createResponse = courierClient.create(courier);
@@ -93,6 +100,7 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot be created with empty credentials")
     public void testCourierCannotBeCreatedWithEmptyCredentials() {
         courier.setLogin("");
         courier.setPassword("");
@@ -105,6 +113,7 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot be created without login")
     public void testCourierCannotBeCreatedWithoutLogin() {
         courier.setLogin(null);
         ValidatableResponse createResponse = courierClient.create(courier);
@@ -116,6 +125,7 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot be created without password")
     public void testCourierCannotBeCreatedWithoutPassword() {
         courier.setPassword(null);
         ValidatableResponse createResponse = courierClient.create(courier);
@@ -127,6 +137,7 @@ public class CreateCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot be created without credentials")
     public void testCourierCannotBeCreatedWithoutCredentials() {
         courier.setLogin(null);
         courier.setPassword(null);

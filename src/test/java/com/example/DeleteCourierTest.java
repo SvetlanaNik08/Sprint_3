@@ -1,9 +1,11 @@
 package com.example;
+
 import io.restassured.response.ValidatableResponse;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.junit4.DisplayName;
 
 import java.util.List;
 
@@ -24,16 +26,17 @@ public class DeleteCourierTest {
         courierClient.create(courier);
         ValidatableResponse loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), courier.getPassword()));
         courierId = loginResponse.extract().path("id");
-     }
+    }
 
-     @After
-     public void tearDown() {
-         if(statusCode != SC_OK) {
-             courierClient.delete(courierId.toString());
-         }
-     }
+    @After
+    public void tearDown() {
+        if (statusCode != SC_OK) {
+            courierClient.delete(courierId.toString());
+        }
+    }
 
     @Test
+    @DisplayName("Courier can be deleted with valid courierId")
     public void testCourierCanBeDeleted() {
         ValidatableResponse deleteResponse = courierClient.delete(courierId.toString());
         statusCode = deleteResponse.extract().statusCode();
@@ -44,6 +47,7 @@ public class DeleteCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot be deleted without courierId")
     public void testCourierCannotBeDeletedWithoutId() {
         ValidatableResponse deleteResponse = courierClient.delete(null);
         statusCode = deleteResponse.extract().statusCode();
@@ -54,6 +58,7 @@ public class DeleteCourierTest {
     }
 
     @Test
+    @DisplayName("Non-existent courier cannot be deleted")
     public void testNonExistentCourierCannotBeDeleted() {
         ValidatableResponse deleteResponse = courierClient.delete("0");
         statusCode = deleteResponse.extract().statusCode();

@@ -4,6 +4,7 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.junit4.DisplayName;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CreateOrderTest {
 
     @Parameterized.Parameters
     public static Object[][] getColors() {
-        return new Object[][] {
+        return new Object[][]{
                 {"\"BLACK\", \"GREY\""},
                 {"\"GREY\""},
                 {"\"BLACK\""},
@@ -47,6 +48,7 @@ public class CreateOrderTest {
     }
 
     @Test
+    @DisplayName("Order can be created")
     public void testOrderCanBeCreated() {
         ValidatableResponse createResponse = courierClient.createOrder(order);
         int statusCode = createResponse.extract().statusCode();

@@ -5,6 +5,7 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.junit4.DisplayName;
 
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,7 +30,7 @@ public class LoginCourierTest {
 
     @After
     public void tearDown() {
-        if(statusCode != SC_OK) {
+        if (statusCode != SC_OK) {
             loginResponse = courierClient.login(courierCredentials);
             courierId = loginResponse.extract().path("id");
         }
@@ -37,6 +38,7 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier can login with valid credentials")
     public void testCourierCanLoginWithValidCredentials() {
         loginResponse = courierClient.login(courierCredentials);
         statusCode = loginResponse.extract().statusCode();
@@ -47,6 +49,7 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login with empty login")
     public void testCourierCannotLoginWithEmptyLogin() {
         loginResponse = courierClient.login(new CourierCredentials("", courier.getPassword()));
         statusCode = loginResponse.extract().statusCode();
@@ -57,6 +60,7 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login with empty password")
     public void testCourierCannotLoginWithEmptyPasword() {
         loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), ""));
         statusCode = loginResponse.extract().statusCode();
@@ -67,6 +71,7 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login with empty credentials")
     public void testCourierCannotLoginWithEmptyCredentials() {
         loginResponse = courierClient.login(new CourierCredentials("", ""));
         statusCode = loginResponse.extract().statusCode();
@@ -77,8 +82,9 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login with non-existent login")
     public void testCourierCannotLoginWithNonExistentLogin() {
-        loginResponse = courierClient.login(new CourierCredentials(courier.getLogin().substring(0,8), courier.getPassword()));
+        loginResponse = courierClient.login(new CourierCredentials(courier.getLogin().substring(0, 8), courier.getPassword()));
         statusCode = loginResponse.extract().statusCode();
         String actual = loginResponse.extract().path("message");
 
@@ -87,8 +93,9 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login with non-existent password")
     public void testCourierCannotLoginWithNonExistentPassword() {
-        loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), courier.getPassword().substring(0,8)));
+        loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), courier.getPassword().substring(0, 8)));
         statusCode = loginResponse.extract().statusCode();
         String actual = loginResponse.extract().path("message");
 
@@ -97,8 +104,9 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login with non-existent credentials")
     public void testCourierCannotLoginWithNonExistentCredentials() {
-        loginResponse = courierClient.login(new CourierCredentials(courier.getLogin().substring(0,8), courier.getPassword().substring(0,8)));
+        loginResponse = courierClient.login(new CourierCredentials(courier.getLogin().substring(0, 8), courier.getPassword().substring(0, 8)));
         statusCode = loginResponse.extract().statusCode();
         String actual = loginResponse.extract().path("message");
 
@@ -107,6 +115,7 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login without login")
     public void testCourierCannotLoginWithoutLogin() {
         loginResponse = courierClient.login(new CourierCredentials(null, courier.getPassword()));
         statusCode = loginResponse.extract().statusCode();
@@ -116,6 +125,7 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login without password")
     public void testCourierCannotLoginWithoutPassword() {
         loginResponse = courierClient.login(new CourierCredentials(courier.getLogin(), null));
         statusCode = loginResponse.extract().statusCode();
@@ -125,6 +135,7 @@ public class LoginCourierTest {
     }
 
     @Test
+    @DisplayName("Courier cannot login without credentials")
     public void testCourierCannotLoginWithoutCredentials() {
         loginResponse = courierClient.login(new CourierCredentials(null, null));
         statusCode = loginResponse.extract().statusCode();

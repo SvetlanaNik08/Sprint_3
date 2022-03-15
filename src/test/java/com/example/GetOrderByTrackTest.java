@@ -1,9 +1,11 @@
 package com.example;
+
 import io.restassured.response.ValidatableResponse;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.junit4.DisplayName;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class GetOrderByTrackTest {
     }
 
     @Test
+    @DisplayName("Can get order by valid track")
     public void testCanGetOrderByTrack() {
         ValidatableResponse getOrderResponse = courierClient.getOrderByTrack(track);
         statusCode = getOrderResponse.extract().statusCode();
@@ -40,7 +43,8 @@ public class GetOrderByTrackTest {
     }
 
     @Test
-    public void testCanotGetOrderWithoutTrack() {
+    @DisplayName("Cannot get order without track")
+    public void testCannotGetOrderWithoutTrack() {
         ValidatableResponse getOrderResponse = courierClient.getOrderByTrack(null);
         statusCode = getOrderResponse.extract().statusCode();
         String actual = getOrderResponse.extract().path("message");
@@ -49,6 +53,7 @@ public class GetOrderByTrackTest {
     }
 
     @Test
+    @DisplayName("Cannot get order with incorrect track")
     public void testCannotGetOrderWithIncorrectTrack() {
         ValidatableResponse getOrderResponse = courierClient.getOrderByTrack(0);
         statusCode = getOrderResponse.extract().statusCode();

@@ -1,9 +1,11 @@
 package com.example;
+
 import io.restassured.response.ValidatableResponse;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.junit4.DisplayName;
 
 import java.util.List;
 
@@ -37,11 +39,12 @@ public class AcceptOrderTest {
 
     @After
     public void tearDown() {
-       courierClient.delete(courierId);
-       courierClient.cancelOrder(track.toString());
+        courierClient.delete(courierId);
+        courierClient.cancelOrder(track.toString());
     }
 
     @Test
+    @DisplayName("Courier accepts an order (valid orderId and courierId)")
     public void testOrderCanBeAccepted() {
         ValidatableResponse acceptResponse = courierClient.acceptOrder(orderId, courierId);
         statusCode = acceptResponse.extract().statusCode();
@@ -52,6 +55,7 @@ public class AcceptOrderTest {
     }
 
     @Test
+    @DisplayName("Order cannot be accepted without courierId")
     public void testOrderCannotBeAcceptedWithoutCourierId() {
         ValidatableResponse acceptResponse = courierClient.acceptOrder(orderId, null);
         statusCode = acceptResponse.extract().statusCode();
@@ -62,6 +66,7 @@ public class AcceptOrderTest {
     }
 
     @Test
+    @DisplayName("Order cannot be accepted with incorrect courierId")
     public void testOrderCannotBeAcceptedWithIncorrectCourierId() {
         ValidatableResponse acceptResponse = courierClient.acceptOrder(orderId, "0");
         statusCode = acceptResponse.extract().statusCode();
@@ -72,6 +77,7 @@ public class AcceptOrderTest {
     }
 
     @Test
+    @DisplayName("Order cannot be accepted without orderId")
     public void testOrderCannotBeAcceptedWithoutOrderId() {
         ValidatableResponse acceptResponse = courierClient.acceptOrder(null, courierId);
         statusCode = acceptResponse.extract().statusCode();
@@ -82,6 +88,7 @@ public class AcceptOrderTest {
     }
 
     @Test
+    @DisplayName("Order cannot be accepted with incorrect orderId")
     public void testOrderCannotBeAcceptedWithIncorrectOrderId() {
         ValidatableResponse acceptResponse = courierClient.acceptOrder("0", courierId);
         statusCode = acceptResponse.extract().statusCode();

@@ -1,7 +1,9 @@
 package com.example;
+
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
 import org.junit.Test;
+import io.qameta.allure.junit4.DisplayName;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ public class ListOfOrdersTest {
     }
 
     @Test
+    @DisplayName("List of orders can be received")
     public void testListOfOrdersCanBeReceived() {
         ValidatableResponse listResponse = courierClient.getListOfOrders();
         int statusCode = listResponse.extract().statusCode();
