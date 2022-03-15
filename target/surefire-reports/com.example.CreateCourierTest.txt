@@ -1,0 +1,18 @@
+-------------------------------------------------------------------------------
+Test set: com.example.CreateCourierTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 4.137 s <<< FAILURE! - in com.example.CreateCourierTest
+testTheSameCourierCannotBeCreated(com.example.CreateCourierTest)  Time elapsed: 0.61 s  <<< FAILURE!
+java.lang.AssertionError: 
+Запрос не возвращает 'Этот логин уже используется'
+Expected: "Этот логин уже используется"
+     but: was "Этот логин уже используется. Попробуйте другой."
+	at com.example.CreateCourierTest.testTheSameCourierCannotBeCreated(CreateCourierTest.java:61)
+
+testCourierWithTheSameLoginCannotBeCreated(com.example.CreateCourierTest)  Time elapsed: 0.82 s  <<< FAILURE!
+java.lang.AssertionError: 
+Запрос не возвращает 'Этот логин уже используется'
+Expected: "Этот логин уже используется"
+     but: was "Этот логин уже используется. Попробуйте другой."
+	at com.example.CreateCourierTest.testCourierWithTheSameLoginCannotBeCreated(CreateCourierTest.java:75)
+
